@@ -6,23 +6,40 @@
 //
 
 import Foundation
+import Combine
 
-protocol PTaskListVM {
-    func loadData()
+typealias TaskVMOutput = AnyPublisher<TaskDTO, Error>
+
+protocol TaskListVMType {
+    func transform(input: TaskListVMInput) -> TaskVMOutput
 }
 
-final class TaskListVM: PTaskListVM {
+struct TaskListVMInput {
+    let appear: PassthroughSubject<Void, Error>
+}
+
+final class TaskListVM: TaskListVMType {
     var apiService: PApiService?
-    weak var view: PTaskListVC?
     
-    func loadData() {
-        apiService?.getTasks(completion: { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
+    func transform(input: TaskListVMInput) -> TaskVMOutput {
+        let appear = input.appear.flatMap { _ in
+            self.loadData()
+        }
+        
+        return appear.eraseToAnyPublisher()
+    }
+    
+    private func loadData() -> TaskVMOutput {
+        return Future { promise in
+            self.apiService?.getTasks { result in
+                switch result {
+                case .success(let taskDTO):
+                    promise(.success(taskDTO))
+                case .failure(let error):
+                    promise(.failure(error))
+                }
             }
-        })
+        }
+        .eraseToAnyPublisher()
     }
 }

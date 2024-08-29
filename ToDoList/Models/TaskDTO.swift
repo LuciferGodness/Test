@@ -18,5 +18,7 @@ struct TaskDTO: Decodable {
         let todo: String
         let completed: Bool
         let userId: Int
+        let date: Date?
+        let description: String?
     }
 }

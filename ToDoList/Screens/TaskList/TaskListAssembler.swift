@@ -9,13 +9,11 @@ import Foundation
 
 enum TaskListAssembler {
     static func assemble() -> TaskListVC {
-        let view = TaskListVC()
         let vm = TaskListVM()
         let apiService = ApiService()
         
-        vm.view = view
         vm.apiService = apiService
-        view.vm = vm
+        let view = TaskListVC(vm: vm)
         
         return view
     }
