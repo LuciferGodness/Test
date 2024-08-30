@@ -16,54 +16,55 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qw2-wx-GxG">
-                        <rect key="frame" x="16" y="10" width="252" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qw2-wx-GxG">
+                        <rect key="frame" x="16" y="10" width="263" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NiZ-oG-V07">
-                        <rect key="frame" x="284" y="9" width="20" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="20" id="Hxs-8f-d5Y"/>
-                            <constraint firstAttribute="height" constant="20" id="pm6-SE-cEz"/>
-                        </constraints>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain"/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Created" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p76-it-IOr">
-                        <rect key="frame" x="229.66666666666666" y="39" width="38.333333333333343" height="12"/>
+                        <rect key="frame" x="255.66666666666666" y="39" width="38.333333333333343" height="12"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR4-kc-3XB">
-                        <rect key="frame" x="278" y="39" width="26" height="12"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DR4-kc-3XB">
+                        <rect key="frame" x="304" y="45" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark" catalog="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K5c-4c-8FA">
+                        <rect key="frame" x="284" y="11.333333333333334" width="20" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="0wH-OL-jiP"/>
+                            <constraint firstAttribute="width" constant="20" id="R1j-ax-s18"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="p76-it-IOr" firstAttribute="centerY" secondItem="DR4-kc-3XB" secondAttribute="centerY" id="AIe-My-fF3"/>
-                    <constraint firstAttribute="trailing" secondItem="NiZ-oG-V07" secondAttribute="trailing" constant="16" id="FP4-px-ghV"/>
-                    <constraint firstItem="NiZ-oG-V07" firstAttribute="centerY" secondItem="qw2-wx-GxG" secondAttribute="centerY" id="Kb8-Lg-cE4"/>
+                    <constraint firstItem="p76-it-IOr" firstAttribute="top" secondItem="K5c-4c-8FA" secondAttribute="bottom" constant="10" id="Pkj-vR-ET5"/>
                     <constraint firstItem="qw2-wx-GxG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Vdg-78-1aG"/>
+                    <constraint firstItem="K5c-4c-8FA" firstAttribute="leading" secondItem="qw2-wx-GxG" secondAttribute="trailing" constant="5" id="WcF-ar-ezS"/>
                     <constraint firstItem="qw2-wx-GxG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="bD6-BA-cvu"/>
-                    <constraint firstItem="DR4-kc-3XB" firstAttribute="top" secondItem="NiZ-oG-V07" secondAttribute="bottom" constant="10" id="c6L-qC-JPQ"/>
                     <constraint firstItem="DR4-kc-3XB" firstAttribute="leading" secondItem="p76-it-IOr" secondAttribute="trailing" constant="10" id="kTI-AE-7s4"/>
-                    <constraint firstItem="NiZ-oG-V07" firstAttribute="leading" secondItem="qw2-wx-GxG" secondAttribute="trailing" constant="16" id="qmh-GM-oDM"/>
+                    <constraint firstAttribute="trailing" secondItem="K5c-4c-8FA" secondAttribute="trailing" constant="16" id="lFK-IL-aP6"/>
+                    <constraint firstItem="K5c-4c-8FA" firstAttribute="centerY" secondItem="qw2-wx-GxG" secondAttribute="centerY" id="qxI-Ez-6zS"/>
                     <constraint firstAttribute="trailing" secondItem="DR4-kc-3XB" secondAttribute="trailing" constant="16" id="uCm-Vw-x38"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="checkbox" destination="NiZ-oG-V07" id="oAf-Jp-9mn"/>
+                <outlet property="checkbox" destination="K5c-4c-8FA" id="Q5l-sE-BJp"/>
+                <outlet property="createfLabel" destination="p76-it-IOr" id="1Sb-Yb-WYd"/>
                 <outlet property="date" destination="DR4-kc-3XB" id="sVz-ul-jpK"/>
                 <outlet property="title" destination="qw2-wx-GxG" id="4bd-l6-GMH"/>
             </connections>
-            <point key="canvasLocation" x="37" y="20"/>
+            <point key="canvasLocation" x="36.641221374045799" y="19.718309859154932"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="checkmark" catalog="system" width="128" height="114"/>
+    </resources>
 </document>

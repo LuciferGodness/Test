@@ -12,10 +12,9 @@ final class ExpandableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func setup(description: String?) {
-        descriptionText.text = description
+        descriptionText.text = description ?? "There's no description"
     }
 }

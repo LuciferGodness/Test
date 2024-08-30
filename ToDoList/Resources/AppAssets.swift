@@ -9,5 +9,5 @@ import Foundation
 import UIKit
 
 enum AppAssets {
-    static let checkmarkSquare = UIImage(systemName: "checkmark.square")
+    static let checkmarkSquare = UIImage(systemName: "checkmark")
 }

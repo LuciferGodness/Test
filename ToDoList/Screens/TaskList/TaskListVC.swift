@@ -10,7 +10,7 @@ import Combine
 
 struct Section {
     var mainCellTitle: MainCellData
-    var expandableCellOptions: String
+    var expandableCellOptions: String?
     var isExpandableCellsHidden: Bool
 }
 
@@ -57,7 +57,7 @@ final class TaskListVC: UIViewController {
         output.sink { _ in
         } receiveValue: { state in
             self.sections = state.todos.map {
-                Section(mainCellTitle: .init(title: $0.todo, completable: $0.completed, date: $0.date), expandableCellOptions: $0.description ?? "", isExpandableCellsHidden: false)
+                Section(mainCellTitle: .init(title: $0.todo, completable: $0.completed, date: $0.date), expandableCellOptions: $0.description, isExpandableCellsHidden: true)
             }
             self.updateTableView()
         }.store(in: &cancellables)
@@ -80,7 +80,7 @@ extension TaskListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let section = sections[section]
         if !section.isExpandableCellsHidden {
-            return section.expandableCellOptions.count + 1
+            return 2
         } else {
             return 1
         }
@@ -94,16 +94,26 @@ extension TaskListVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueCell(ofType: ExpandableCell.self) else { return UITableViewCell() }
-            cell.setup(description: "dbsjhbcjkswfjnwnjf")
+            cell.setup(description: sections[indexPath.section].expandableCellOptions)
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0{
+        tableView.deselectRow(at: indexPath, animated: false)
+        if indexPath.row == 0 {
+            let isHidden = sections[indexPath.section].isExpandableCellsHidden
             sections[indexPath.section].isExpandableCellsHidden.toggle()
-            tableView.reloadData()
+            
+            tableView.beginUpdates()
+            
+            if isHidden {
+                tableView.insertRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .automatic)
+            } else {
+                tableView.deleteRows(at: [IndexPath(row: 1, section: indexPath.section)], with: .automatic)
+            }
+            
+            tableView.endUpdates()
         }
-
     }
 }
