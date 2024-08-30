@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol PApiService {
+protocol ApiServiceHelper {
     func getTasks(completion: @escaping (Result<TaskDTO, Error>) -> Void)
 }
 
-extension ApiService: PApiService {
+extension ApiService: ApiServiceHelper {
     func getTasks(completion: @escaping (Result<TaskDTO, Error>) -> Void) {
         sendRequest(url: .getTasks, completion: completion)
     }

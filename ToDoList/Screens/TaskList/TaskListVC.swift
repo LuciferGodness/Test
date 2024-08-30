@@ -8,21 +8,10 @@
 import UIKit
 import Combine
 
-struct Section {
-    var mainCellTitle: MainCellData
-    var expandableCellOptions: String?
-    var isExpandableCellsHidden: Bool
-}
-
-struct MainCellData {
-    var title: String
-    var completable: Bool
-    var date: Date?
-}
-
 final class TaskListVC: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     private let appear = PassthroughSubject<Void, Error>()
+    private let appearFromDatabase = PassthroughSubject<Void, Error>()
     private var cancellables = Set<AnyCancellable>()
     var vm: TaskListVMType
     var sections: [Section] = []
@@ -37,12 +26,13 @@ final class TaskListVC: UIViewController {
     }
     
     override func viewDidLoad() {
-        if !AppState.current.isFirstRun {
-            
-            AppState.current.isFirstRun = true
-        }
         bindViewModel()
-        appear.send()
+        if !AppState.current.isFirstRun {
+            AppState.current.isFirstRun = true
+            appear.send()
+        } else {
+            appearFromDatabase.send()
+        }
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -51,7 +41,8 @@ final class TaskListVC: UIViewController {
     }
     
     private func bindViewModel() {
-        let input = TaskListVMInput(appear: appear)
+        let input = TaskListVMInput(appear: appear,
+                                    appearFromDatabase: appearFromDatabase)
         let output = vm.transform(input: input)
         
         output.sink { _ in

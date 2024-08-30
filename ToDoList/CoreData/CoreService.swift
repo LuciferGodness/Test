@@ -9,29 +9,31 @@ import Foundation
 import CoreData
 import UIKit
 
-protocol PCoreService {
-    func saveTask(tasks: TaskDTO.TaskInfo)
+protocol CoreServiceHelper {
+    func saveTask(tasks: TaskDTO)
     func fetchTasks(completion: @escaping ([Task]?) -> Void)
     func deleteTasks(id: Int16)
     func updateTask(id: Int16, newTitle: String?, newDetails: String?, completion: @escaping (Bool) -> Void)
 }
 
-final class CoreService {
-    func saveTask(tasks: TaskDTO.TaskInfo) {
+final class CoreService: CoreServiceHelper {
+    func saveTask(tasks: TaskDTO) {
         let context = DependencyContainer.shared.coreService
         
         context.perform {
-            let task = Task(context: context)
-            task.id = Int16(tasks.id)
-            task.title = tasks.todo
-            task.completed = tasks.completed
-            task.dataOfCreation = tasks.date
-            task.taskDescription = tasks.description
-            
-            do {
-                try context.save()
-            } catch {
-                print("Ошибка сохранения \(error)")
+            tasks.todos.forEach { element in
+                let task = Task(context: context)
+                task.id = Int16(element.id)
+                task.title = element.todo
+                task.completed = element.completed
+                task.dataOfCreation = element.date
+                task.taskDescription = element.description
+                
+                do {
+                    try context.save()
+                } catch {
+                    print("Ошибка сохранения \(error)")
+                }
             }
         }
     }
@@ -44,6 +46,7 @@ final class CoreService {
             
             do {
                 let tasks = try context.fetch(fetchRequest)
+                print(tasks)
                 DispatchQueue.main.async {
                     return completion(tasks)
                 }
