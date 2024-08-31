@@ -10,4 +10,5 @@ import UIKit
 
 enum AppAssets {
     static let checkmarkSquare = UIImage(systemName: "checkmark")
+    static let checkmarkFill = UIImage(systemName: "checkmark.square")
 }

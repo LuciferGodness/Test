@@ -30,8 +30,8 @@ final class TaskListVM: TaskListVMType {
             self.apiService?.getTasks { result in
                 switch result {
                 case .success(let taskDTO):
-                    self.saveData(tasks: taskDTO)
-                    promise(.success(taskDTO))
+                    self.saveData(tasks: taskDTO.todos)
+                    promise(.success(.tasks(taskDTO)))
                 case .failure(let error):
                     promise(.failure(error))
                 }
@@ -59,7 +59,7 @@ final class TaskListVM: TaskListVMType {
                         skip: 0,
                         limit: taskInfos.count
                     )
-                    promise(.success(taskDTO))
+                    promise(.success(.tasks(taskDTO)))
                 } else {
                     promise(.failure(NSError(domain: "FetchError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch tasks from the database."])))
                 }
@@ -68,7 +68,7 @@ final class TaskListVM: TaskListVMType {
         .eraseToAnyPublisher()
     }
     
-    private func saveData(tasks: TaskDTO) {
+    private func saveData(tasks: [TaskDTO.TaskInfo]) {
         coreService?.saveTask(tasks: tasks)
     }
 }

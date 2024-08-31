@@ -10,4 +10,5 @@ import UIKit
 
 enum AppColors {
     static let gray = UIColor.gray.cgColor
+    static let lightGray = UIColor.placeholderText.withAlphaComponent(0.1).cgColor
 }

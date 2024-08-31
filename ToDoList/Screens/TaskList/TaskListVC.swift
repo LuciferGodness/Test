@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TaskListVC: UIViewController {
+final class TaskListVC: BaseVC {
     @IBOutlet private weak var tableView: UITableView!
     private let appear = PassthroughSubject<Void, Error>()
     private let appearFromDatabase = PassthroughSubject<Void, Error>()
@@ -16,7 +16,7 @@ final class TaskListVC: UIViewController {
     var vm: TaskListVMType
     var sections: [Section] = []
     
-    init(vm: TaskListVM) {
+    init(vm: TaskListVMType) {
         self.vm = vm
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,6 +40,11 @@ final class TaskListVC: UIViewController {
         tableView.registerCell(ofType: ExpandableCell.self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        appearFromDatabase.send()
+        super.viewWillAppear(animated)
+    }
+    
     private func bindViewModel() {
         let input = TaskListVMInput(appear: appear,
                                     appearFromDatabase: appearFromDatabase)
@@ -47,15 +52,36 @@ final class TaskListVC: UIViewController {
         
         output.sink { _ in
         } receiveValue: { state in
-            self.sections = state.todos.map {
-                Section(mainCellTitle: .init(title: $0.todo, completable: $0.completed, date: $0.date), expandableCellOptions: $0.description, isExpandableCellsHidden: true)
+            self.updateView(state: state)
+        }.store(in: &cancellables)
+    }
+    
+    private func updateView(state: TaskListResponseType) {
+        switch state {
+        case .tasks(let taskDTO):
+            self.sections = taskDTO.todos.map {
+                Section(mainCellTitle: .init(id: $0.id, title: $0.todo, completable: $0.completed, date: $0.date), expandableCellOptions: $0.description, isExpandableCellsHidden: true)
             }
             self.updateTableView()
-        }.store(in: &cancellables)
+        case .failure(let error):
+            print(error)
+        }
     }
     
     private func updateTableView() {
         tableView.reloadData()
+    }
+    
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.leftBarButtonItem = addButton
+    }
+    
+    @objc private func addButtonTapped() {
+        let addTaskVC = EditTaskAssembler.assemble(taskId: nil, state: .create, count: sections.count)
+        navigationController?.pushViewController(addTaskVC, animated: true)
     }
 }
 
@@ -105,6 +131,8 @@ extension TaskListVC: UITableViewDelegate, UITableViewDataSource {
             }
             
             tableView.endUpdates()
+        } else {
+            navigationController?.pushViewController(EditTaskAssembler.assemble(taskId: sections[indexPath.section].mainCellTitle.id, state: .edit, count: sections.count), animated: true)
         }
     }
 }
