@@ -79,10 +79,17 @@ final class EditTaskVC: BaseVC {
         updateImage()
     }
     
+    var newTaskId: Int {
+        let lastId = AppState.current.lastTaskId
+        let newId = (lastId + 1) % Int.max
+        AppState.current.lastTaskId = newId
+        return newId
+    }
+    
     @IBAction private func saveData() {
         if vm.state == .create {
             if let title = titleTextField.text {
-                save.send(.init(id: vm.count,
+                save.send(.init(id: newTaskId,
                                 todo: title,
                                 completed: completed,
                                 userId: 1,

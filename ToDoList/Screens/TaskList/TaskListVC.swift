@@ -85,7 +85,7 @@ final class TaskListVC: BaseVC {
     }
     
     @objc private func addButtonTapped() {
-        let addTaskVC = EditTaskAssembler.assemble(taskId: nil, state: .create, count: sections.count)
+        let addTaskVC = EditTaskAssembler.assemble(taskId: nil, state: .create)
         navigationController?.pushViewController(addTaskVC, animated: true)
     }
 }
@@ -133,7 +133,7 @@ extension TaskListVC: UITableViewDelegate, UITableViewDataSource {
             
             tableView.endUpdates()
         } else {
-            navigationController?.pushViewController(EditTaskAssembler.assemble(taskId: sections[indexPath.section].mainCellTitle.id, state: .edit, count: sections.count), animated: true)
+            navigationController?.pushViewController(EditTaskAssembler.assemble(taskId: sections[indexPath.section].mainCellTitle.id, state: .edit), animated: true)
         }
     }
 }

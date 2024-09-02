@@ -62,11 +62,11 @@ final class MockCoreService: CoreServiceHelper {
         }
     }
     
-    func deleteTasks(id: Int16) {
+    func deleteTasks(id: Int64) {
         MockCoreService.isCalled[.deleteTask] = true
     }
     
-    func updateTask(id: Int16, newData: ToDoList.UpdateTask, completion: @escaping (Bool) -> Void) {
+    func updateTask(id: Int64, newData: ToDoList.UpdateTask, completion: @escaping (Bool) -> Void) {
         MockCoreService.isCalled[.updateTask] = true
         DispatchQueue.main.async {
             if let task = MockCoreService.tasksToReturn {
@@ -78,13 +78,13 @@ final class MockCoreService: CoreServiceHelper {
         }
     }
     
-    func fetchTask(id: Int16, completion: @escaping (ToDoList.Task?) -> Void) {
+    func fetchTask(id: Int64, completion: @escaping (ToDoList.Task?) -> Void) {
         MockCoreService.isCalled[.fetchTask] = true
         DispatchQueue.main.async {
             if let mockTask = MockCoreService.tasksToReturn?.first(where: { $0.id == id }) {
                 let context = MockCoreDataStack.shared.context
                 let task = ToDoList.Task(context: context)
-                task.id = Int16(mockTask.id)
+                task.id = Int64(mockTask.id)
                 task.title = mockTask.todo
                 task.completed = mockTask.completed
                 task.dataOfCreation = mockTask.date

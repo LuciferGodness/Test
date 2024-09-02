@@ -17,16 +17,13 @@ final class EditTaskVM: EditTaskVMType {
     let taskId: Int?
     let coreService: CoreServiceHelper
     var state: TaskState
-    var count: Int
     
     init(taskId: Int?,
          state: TaskState,
-         coreService: CoreServiceHelper,
-         count: Int) {
+         coreService: CoreServiceHelper) {
         self.taskId = taskId
         self.state = state
         self.coreService = coreService
-        self.count = count
     }
     
     func transform(input: EditTaskVMInput) -> EditTaskVMOutput {
@@ -52,7 +49,7 @@ final class EditTaskVM: EditTaskVMType {
     private func loadTask() -> EditTaskVMOutput {
         return Future { promise in
             guard let taskId = self.taskId else { return }
-            self.coreService.fetchTask(id: Int16(taskId), completion: { response in
+            self.coreService.fetchTask(id: Int64(taskId), completion: { response in
                 if let response = response {
                     promise(.success(.task(response)))
                 } else {
@@ -66,7 +63,7 @@ final class EditTaskVM: EditTaskVMType {
     private func deleteTask() -> EditTaskVMOutput {
         return Future { promise in
             guard let taskId = self.taskId else { return }
-            self.coreService.deleteTasks(id: Int16(taskId))
+            self.coreService.deleteTasks(id: Int64(taskId))
             promise(.success(.delete))
         }
         .eraseToAnyPublisher()
@@ -83,7 +80,7 @@ final class EditTaskVM: EditTaskVMType {
     private func updateTask(task: UpdateTask) -> EditTaskVMOutput {
         return Future { promise in
             guard let taskId = self.taskId else { return }
-            self.coreService.updateTask(id: Int16(taskId), newData: task) { state in
+            self.coreService.updateTask(id: Int64(taskId), newData: task) { state in
                 if state {
                     promise(.success(.update))
                 } else {
