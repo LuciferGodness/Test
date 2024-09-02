@@ -24,6 +24,7 @@ final class HeaderCell: UITableViewCell {
             self.date.text = dateToString(dateString: date.description)
         } else {
             createfLabel.isHidden = true
+            self.date.text = nil
         }
         
         let image = completed ? AppAssets.checkmarkSquare : nil

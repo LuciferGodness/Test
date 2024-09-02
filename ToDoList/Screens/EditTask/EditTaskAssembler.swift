@@ -8,13 +8,12 @@
 import Foundation
 
 enum EditTaskAssembler {
-    static func assemble(taskId: Int?, state: TaskState, count: Int) -> EditTaskVC{
+    static func assemble(taskId: Int?, state: TaskState) -> EditTaskVC{
         let coreData = CoreService()
         
         let vm = EditTaskVM.init(taskId: taskId,
                                  state: state,
-                                 coreService: coreData,
-                                 count: count)
+                                 coreService: coreData)
         let view = EditTaskVC(vm: vm)
         
         return view

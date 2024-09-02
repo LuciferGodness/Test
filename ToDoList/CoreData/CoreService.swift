@@ -12,9 +12,9 @@ import UIKit
 protocol CoreServiceHelper {
     func saveTask(tasks: [TaskDTO.TaskInfo])
     func fetchTasks(completion: @escaping ([Task]?) -> Void)
-    func deleteTasks(id: Int16)
-    func updateTask(id: Int16, newData: UpdateTask, completion: @escaping (Bool) -> Void)
-    func fetchTask(id: Int16, completion: @escaping (Task?) -> Void)
+    func deleteTasks(id: Int64)
+    func updateTask(id: Int64, newData: UpdateTask, completion: @escaping (Bool) -> Void)
+    func fetchTask(id: Int64, completion: @escaping (Task?) -> Void)
 }
 
 final class CoreService: CoreServiceHelper {
@@ -24,7 +24,7 @@ final class CoreService: CoreServiceHelper {
         context.perform {
             tasks.forEach { element in
                 let task = Task(context: context)
-                task.id = Int16(element.id)
+                task.id = Int64(element.id)
                 task.title = element.todo
                 task.completed = element.completed
                 task.dataOfCreation = element.date
@@ -47,7 +47,6 @@ final class CoreService: CoreServiceHelper {
             
             do {
                 let tasks = try context.fetch(fetchRequest)
-                print(tasks)
                 DispatchQueue.main.async {
                     return completion(tasks)
                 }
@@ -60,7 +59,7 @@ final class CoreService: CoreServiceHelper {
         }
     }
     
-    func fetchTask(id: Int16, completion: @escaping (Task?) -> Void) {
+    func fetchTask(id: Int64, completion: @escaping (Task?) -> Void) {
         let context = DependencyContainer.shared.coreService
         
         context.perform {
@@ -69,7 +68,6 @@ final class CoreService: CoreServiceHelper {
             
             do {
                 let tasks = try context.fetch(fetchRequest)
-                print(tasks)
                 DispatchQueue.main.async {
                     return completion(tasks.first)
                 }
@@ -82,7 +80,7 @@ final class CoreService: CoreServiceHelper {
         }
     }
     
-    func deleteTasks(id: Int16) {
+    func deleteTasks(id: Int64) {
         let context = DependencyContainer.shared.coreService
         
         context.perform {
@@ -102,7 +100,7 @@ final class CoreService: CoreServiceHelper {
         }
     }
     
-    func updateTask(id: Int16, newData: UpdateTask, completion: @escaping (Bool) -> Void) {
+    func updateTask(id: Int64, newData: UpdateTask, completion: @escaping (Bool) -> Void) {
         let context = DependencyContainer.shared.coreService
         context.perform {
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()

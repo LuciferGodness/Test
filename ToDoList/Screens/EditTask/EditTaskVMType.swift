@@ -13,7 +13,6 @@ typealias EditTaskVMOutput = AnyPublisher<EditTaskResponseType, Error>
 protocol EditTaskVMType {
     func transform(input: EditTaskVMInput) -> EditTaskVMOutput
     var state: TaskState { get }
-    var count: Int { get }
 }
 
 struct UpdateTask {

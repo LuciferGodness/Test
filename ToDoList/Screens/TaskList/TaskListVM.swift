@@ -52,7 +52,6 @@ final class TaskListVM: TaskListVMType {
                                          date: task.dataOfCreation,
                                          description: task.taskDescription)
                     }
-                    
                     let taskDTO = TaskDTO(
                         todos: taskInfos,
                         total: taskInfos.count,

@@ -9,6 +9,7 @@ import Foundation
 
 enum UserDefaultKeys: String {
     case isFirstRun
+    case lastTaskId
 }
 
 @propertyWrapper
