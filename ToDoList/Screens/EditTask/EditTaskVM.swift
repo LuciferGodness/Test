@@ -56,7 +56,7 @@ final class EditTaskVM: EditTaskVMType {
                 if let response = response {
                     promise(.success(.task(response)))
                 } else {
-                    promise(.failure(NSError(domain: "FetchError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch tasks from the database."])))
+                    promise(.failure(NSError(domain: LocalizationKeys.fetchError.localized, code: -1, userInfo: [NSLocalizedDescriptionKey: LocalizationKeys.fetchFail.localized])))
                 }
             })
         }
@@ -87,7 +87,7 @@ final class EditTaskVM: EditTaskVMType {
                 if state {
                     promise(.success(.update))
                 } else {
-                    promise(.failure(NSError(domain: "FetchError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch tasks from the database."])))
+                    promise(.failure(NSError(domain: LocalizationKeys.fetchError.localized, code: -1, userInfo: [NSLocalizedDescriptionKey: LocalizationKeys.fetchFail.localized])))
                 }
             }
         }

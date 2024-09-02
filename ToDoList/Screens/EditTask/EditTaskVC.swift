@@ -32,6 +32,7 @@ final class EditTaskVC: BaseVC {
     }
     
     override func viewDidLoad() {
+        startLoading()
         bindViewModel()
         appear.send()
         super.viewDidLoad()
@@ -56,6 +57,7 @@ final class EditTaskVC: BaseVC {
         } receiveValue: { state in
             self.updateView(state: state)
         }.store(in: &cancellables)
+        endLoading()
     }
     
     private func updateView(state: EditTaskResponseType) {
@@ -87,13 +89,13 @@ final class EditTaskVC: BaseVC {
                                 date: .now,
                                 description: descriptionTextField.text))
             } else {
-                showAlert(message: "Please fill title", nil, title: "Error", okTitle: "Ok")
+                showAlert(message: LocalizationKeys.fillTitle.localized, nil, title: LocalizationKeys.error.localized, okTitle: LocalizationKeys.ok.localized)
             }
         } else {
             if let title = titleTextField.text {
                 update.send(.init(title: title, description: descriptionTextField.text, completed: completed))
             } else {
-                showAlert(message: "Please fill title", nil, title: "Error", okTitle: "Ok")
+                showAlert(message: LocalizationKeys.fillTitle.localized, nil, title: LocalizationKeys.error.localized, okTitle: LocalizationKeys.ok.localized)
             }
         }
     }
@@ -107,13 +109,16 @@ final class EditTaskVC: BaseVC {
     }
     
     override func setupNavigationBar() {
-        super.setupNavigationBar()
-        
-        let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
-        navigationItem.rightBarButtonItem = deleteButton
+        if vm.state == .edit {
+            super.setupNavigationBar()
+            
+            let deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
+            navigationItem.rightBarButtonItem = deleteButton
+        }
     }
     
     @objc private func deleteButtonTapped() {
+        startLoading()
         delete.send()
     }
 }

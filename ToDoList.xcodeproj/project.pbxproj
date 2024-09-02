@@ -14,6 +14,8 @@
 		843C11B62C80EB950036D7E6 /* AppAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C11B52C80EB950036D7E6 /* AppAssets.swift */; };
 		843C11B82C80EBC50036D7E6 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C11B72C80EBC50036D7E6 /* AppColors.swift */; };
 		843C11BA2C825FD30036D7E6 /* TaskListVMType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C11B92C825FD30036D7E6 /* TaskListVMType.swift */; };
+		84BC5EFC2C85EBE100E4C404 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 84BC5EFB2C85EBE100E4C404 /* Localizable.xcstrings */; };
+		84BC5EFE2C85EBFA00E4C404 /* LocalizationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BC5EFD2C85EBFA00E4C404 /* LocalizationKeys.swift */; };
 		84C911A82C834B6300892773 /* EditTaskVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C911A72C834B6300892773 /* EditTaskVM.swift */; };
 		84C911AB2C834BC200892773 /* EditTaskVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84C911AA2C834BC200892773 /* EditTaskVC.xib */; };
 		84C911AC2C834BC200892773 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C911A92C834BC200892773 /* EditTaskVC.swift */; };
@@ -89,6 +91,8 @@
 		843C11B52C80EB950036D7E6 /* AppAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssets.swift; sourceTree = "<group>"; };
 		843C11B72C80EBC50036D7E6 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		843C11B92C825FD30036D7E6 /* TaskListVMType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListVMType.swift; sourceTree = "<group>"; };
+		84BC5EFB2C85EBE100E4C404 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		84BC5EFD2C85EBFA00E4C404 /* LocalizationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationKeys.swift; sourceTree = "<group>"; };
 		84C911A72C834B6300892773 /* EditTaskVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVM.swift; sourceTree = "<group>"; };
 		84C911A92C834BC200892773 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
 		84C911AA2C834BC200892773 /* EditTaskVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditTaskVC.xib; sourceTree = "<group>"; };
@@ -293,6 +297,8 @@
 				84E82AB32C7F8D6700158A9D /* AppAssets.xcassets */,
 				843C11B52C80EB950036D7E6 /* AppAssets.swift */,
 				843C11B72C80EBC50036D7E6 /* AppColors.swift */,
+				84BC5EFB2C85EBE100E4C404 /* Localizable.xcstrings */,
+				84BC5EFD2C85EBFA00E4C404 /* LocalizationKeys.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -492,6 +498,7 @@
 			files = (
 				84E82ABD2C7F8D6700158A9D /* AppAssets.xcassets in Resources */,
 				84E82ABF2C7F8D6700158A9D /* LaunchScreen.storyboard in Resources */,
+				84BC5EFC2C85EBE100E4C404 /* Localizable.xcstrings in Resources */,
 				84E82AC02C7F8D6700158A9D /* Main.storyboard in Resources */,
 				84C911AB2C834BC200892773 /* EditTaskVC.xib in Resources */,
 				843C11AD2C80E5F40036D7E6 /* ExpandableCell.xib in Resources */,
@@ -548,6 +555,7 @@
 				84E82AD52C7F92CA00158A9D /* TaskListVC.swift in Sources */,
 				84E82AF02C80881800158A9D /* CoreService.swift in Sources */,
 				84E82AE72C7FA16500158A9D /* TaskListVM.swift in Sources */,
+				84BC5EFE2C85EBFA00E4C404 /* LocalizationKeys.swift in Sources */,
 				84C911B82C836E0D00892773 /* UITextView + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -721,6 +729,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -777,6 +786,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

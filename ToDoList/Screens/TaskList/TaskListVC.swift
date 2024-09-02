@@ -26,6 +26,7 @@ final class TaskListVC: BaseVC {
     }
     
     override func viewDidLoad() {
+        startLoading()
         bindViewModel()
         if !AppState.current.isFirstRun {
             AppState.current.isFirstRun = true
@@ -36,11 +37,14 @@ final class TaskListVC: BaseVC {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
         tableView.registerCell(ofType: HeaderCell.self)
         tableView.registerCell(ofType: ExpandableCell.self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        startLoading()
         appearFromDatabase.send()
         super.viewWillAppear(animated)
     }
@@ -57,6 +61,7 @@ final class TaskListVC: BaseVC {
     }
     
     private func updateView(state: TaskListResponseType) {
+        endLoading()
         switch state {
         case .tasks(let taskDTO):
             self.sections = taskDTO.todos.map {
@@ -64,7 +69,7 @@ final class TaskListVC: BaseVC {
             }
             self.updateTableView()
         case .failure(let error):
-            print(error)
+            showAlert(message: error.localizedDescription, nil, title: LocalizationKeys.error.localized, okTitle: LocalizationKeys.ok.localized)
         }
     }
     
@@ -88,10 +93,6 @@ final class TaskListVC: BaseVC {
 extension TaskListVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

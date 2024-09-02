@@ -33,7 +33,7 @@ final class CoreService: CoreServiceHelper {
                 do {
                     try context.save()
                 } catch {
-                    print("Ошибка сохранения \(error)")
+                    print("\(LocalizationKeys.saveError)\(error)")
                 }
             }
         }
@@ -52,7 +52,7 @@ final class CoreService: CoreServiceHelper {
                     return completion(tasks)
                 }
             } catch {
-                print("Ошибка \(error)")
+                print("\(LocalizationKeys.error) \(error)")
                 DispatchQueue.main.async {
                     return completion(nil)
                 }
@@ -74,7 +74,7 @@ final class CoreService: CoreServiceHelper {
                     return completion(tasks.first)
                 }
             } catch {
-                print("Ошибка \(error)")
+                print("\(LocalizationKeys.error) \(error)")
                 DispatchQueue.main.async {
                     return completion(nil)
                 }
@@ -95,11 +95,9 @@ final class CoreService: CoreServiceHelper {
                 if let task = tasks.first {
                     context.delete(task)
                     try context.save()
-                } else {
-                    print("Задача с ID \(id) не найдена.")
                 }
             } catch {
-                print("Ошибка \(error)")
+                print("\(LocalizationKeys.error) \(error)")
             }
         }
     }
@@ -122,13 +120,12 @@ final class CoreService: CoreServiceHelper {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        print("Задача с ID \(id) не найдена.")
                         completion(false)
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    print("Ошибка обновления данных: \(error)")
+                    print("\(LocalizationKeys.error) \(error)")
                     completion(false)
                 }
             }

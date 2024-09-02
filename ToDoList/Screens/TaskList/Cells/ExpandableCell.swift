@@ -15,6 +15,6 @@ final class ExpandableCell: UITableViewCell {
     }
 
     func setup(description: String?) {
-        descriptionText.text = description == "" ? "There's no description" : description
+        descriptionText.text = description == "" ? LocalizationKeys.noDescription.localized : description
     }
 }

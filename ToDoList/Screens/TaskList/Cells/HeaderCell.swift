@@ -21,12 +21,24 @@ final class HeaderCell: UITableViewCell {
         self.title.text = title
         if let date = date {
             createfLabel.isHidden = false
-            self.date.text = date.description
+            self.date.text = dateToString(dateString: date.description)
         } else {
             createfLabel.isHidden = true
         }
         
         let image = completed ? AppAssets.checkmarkSquare : nil
         checkbox.image = image
+    }
+    
+    private func dateToString(dateString: String) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "dd MMMM"
+            let formattedDate = dateFormatter.string(from: date)
+            return formattedDate
+        } else {
+            return ""
+        }
     }
 }

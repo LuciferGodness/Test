@@ -44,6 +44,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="p76-it-IOr" firstAttribute="centerY" secondItem="DR4-kc-3XB" secondAttribute="centerY" id="AIe-My-fF3"/>
+                    <constraint firstAttribute="bottom" secondItem="DR4-kc-3XB" secondAttribute="bottom" constant="15" id="Fol-XL-T39"/>
+                    <constraint firstAttribute="bottom" secondItem="p76-it-IOr" secondAttribute="bottom" constant="9" id="NYD-hZ-kbt"/>
                     <constraint firstItem="p76-it-IOr" firstAttribute="top" secondItem="K5c-4c-8FA" secondAttribute="bottom" constant="10" id="Pkj-vR-ET5"/>
                     <constraint firstItem="qw2-wx-GxG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Vdg-78-1aG"/>
                     <constraint firstItem="K5c-4c-8FA" firstAttribute="leading" secondItem="qw2-wx-GxG" secondAttribute="trailing" constant="5" id="WcF-ar-ezS"/>

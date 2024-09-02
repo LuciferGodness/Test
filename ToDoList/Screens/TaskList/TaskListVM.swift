@@ -61,7 +61,7 @@ final class TaskListVM: TaskListVMType {
                     )
                     promise(.success(.tasks(taskDTO)))
                 } else {
-                    promise(.failure(NSError(domain: "FetchError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch tasks from the database."])))
+                    promise(.failure(NSError(domain: LocalizationKeys.fetchError.localized, code: -1, userInfo: [NSLocalizedDescriptionKey: LocalizationKeys.fetchFail.localized])))
                 }
             }
         }
