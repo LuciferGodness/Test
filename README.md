@@ -1,1 +1,1 @@
-[![Watch the video](https://disk.yandex.ru/i/QrWqNyZ-Hfc8lw)
+![Watch the video](https://disk.yandex.ru/i/QrWqNyZ-Hfc8lw)
