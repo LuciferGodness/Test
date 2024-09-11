@@ -44,9 +44,9 @@ final class CoreService: NSObject, CoreServiceHelper {
         
         context.perform {
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)] // false по убыванию, true по возрастанию
             
-            let fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "id", cacheName: nil)
-            
+            let fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
             
             fetchController.delegate = self
             
