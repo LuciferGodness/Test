@@ -17,7 +17,7 @@ protocol CoreServiceHelper {
     func fetchTask(id: Int64, completion: @escaping (Task?) -> Void)
 }
 
-final class CoreService: CoreServiceHelper {
+final class CoreService: NSObject, CoreServiceHelper {
     func saveTask(tasks: [TaskDTO.TaskInfo]) {
         let context = DependencyContainer.shared.coreService
         
@@ -45,10 +45,15 @@ final class CoreService: CoreServiceHelper {
         context.perform {
             let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
             
+            let fetchController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: "id", cacheName: nil)
+            
+            
+            fetchController.delegate = self
+            
             do {
-                let tasks = try context.fetch(fetchRequest)
+                try fetchController.performFetch()
                 DispatchQueue.main.async {
-                    return completion(tasks)
+                    return completion(fetchController.fetchedObjects)
                 }
             } catch {
                 print("\(LocalizationKeys.error) \(error)")
@@ -128,5 +133,31 @@ final class CoreService: CoreServiceHelper {
                 }
             }
         }
+    }
+}
+
+extension CoreService: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            // Обработка вставки нового объекта
+            print("Inserted object at \(String(describing: newIndexPath))")
+        case .delete:
+            // Обработка удаления объекта
+            print("Deleted object at \(String(describing: indexPath))")
+        case .update:
+            // Обработка обновления существующего объекта
+            print("Updated object at \(String(describing: indexPath))")
+        case .move:
+            // Обработка перемещения объекта
+            print("Moved object from \(String(describing: indexPath)) to \(String(describing: newIndexPath))")
+        @unknown default:
+            fatalError("Unknown change type")
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // Этот метод вызывается, когда весь контент был изменен (например, после выполнения запроса)
+        print("Content did change")
     }
 }
